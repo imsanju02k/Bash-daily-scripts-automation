@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Variables
+JAR_FILE_PATH="path/to/your/jar/file" #java projects
+DOCKER_IMAGE_NAME="your-image-name"
+DOCKER_IMAGE_TAG="your-image-tag"
+
+# Build the Docker image
+docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
+
+# Push the Docker image to a registry
+docker push $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
