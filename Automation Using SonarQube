@@ -1,0 +1,24 @@
+Create a shell script named sonar-analysis.sh that will run the SonarQube scanner. This script will:
+Set the SonarQube project key and name.
+Run the SonarQube scanner for the user-service microservice.
+
+=================
+#!/bin/bash
+
+# Set SonarQube project key and name
+SONAR_PROJECT_KEY=user-service
+SONAR_PROJECT_NAME="User Service"
+
+# Run the SonarQube scanner
+sonar-scanner \
+ -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+ -Dsonar.projectName=$SONAR_PROJECT_NAME \
+ -Dsonar.sources=./user-service \
+ -Dsonar.host.url=http://your-sonarqube-server:9000 \
+ -Dsonar.login=your_sonarqube_token
+
+==========================
+
+Replace your-sonarqube-server with the address of your SonarQube server and your_sonarqube_token with your SonarQube authentication token.
+
+run ./sonar-analysis.sh
