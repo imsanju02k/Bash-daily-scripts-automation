@@ -1,0 +1,46 @@
+Create an API Token
+If you haven't already, you'll need to generate an API token from your Atlassian account. This token is used instead of your password for authentication.
+Log in to https://id.atlassian.com/manage-profile/security/api-tokens.
+Click on 'Create API token'.
+Give your token a meaningful name, then click 'Create'.
+Copy the token to a secure location. You won't be able to see it again.
+=========================================
+#!/bin/bash
+
+# Replace these with your Jira instance details
+JIRA_BASE_URL="https://your-jira-instance.atlassian.net"
+JIRA_USERNAME="your-email@example.com"
+JIRA_API_TOKEN="your-api-token"
+
+# Issue details
+PROJECT_KEY="PROJ"
+ISSUE_TYPE="Task"
+SUMMARY="Automated issue creation"
+DESCRIPTION="This issue was created using a shell script."
+
+# Construct the URL for the Jira REST API
+API_URL="${JIRA_BASE_URL}/rest/api/3/issue"
+
+# Make the POST request to create the issue
+curl -X POST \
+ -H "Content-Type: application/json" \
+ -u "${JIRA_USERNAME}:${JIRA_API_TOKEN}" \
+ -d '{
+    "fields": {
+      "project": {
+        "key": "'"${PROJECT_KEY}"'"
+      },
+      "summary": "'"${SUMMARY}"'",
+      "description": "'"${DESCRIPTION}"'",
+      "issuetype": {
+        "name": "'"${ISSUE_TYPE}"'"
+      }
+    }
+ }' \
+ "${API_URL}"
+==============================================
+# Run the Script
+chmod +x create_jira_issue.sh
+./create_jira_issue.sh
+
+This script sends a POST request to the Jira REST API to create a new issue with the specified details. You should see a response from the API indicating the success or failure of the operation.
